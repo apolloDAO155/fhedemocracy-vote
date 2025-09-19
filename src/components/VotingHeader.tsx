@@ -9,9 +9,9 @@ export const VotingHeader = () => {
         <div className="flex items-center justify-between">
           {/* Logo and Branding */}
           <div className="flex items-center gap-4">
-            <img 
-              src={votingLogo} 
-              alt="FHE Democracy Logo" 
+            <img
+              src={votingLogo}
+              alt="FHE Democracy Logo"
               className="w-12 h-12 rounded-lg shadow-md"
             />
             <div className="flex flex-col">
@@ -59,7 +59,11 @@ export const VotingHeader = () => {
                     {(() => {
                       if (!connected) {
                         return (
-                          <button onClick={openConnectModal} type="button" className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-semibold">
+                          <button 
+                            onClick={openConnectModal} 
+                            type="button" 
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-semibold transition-colors"
+                          >
                             Connect Wallet
                           </button>
                         );
@@ -67,7 +71,11 @@ export const VotingHeader = () => {
 
                       if (chain.unsupported) {
                         return (
-                          <button onClick={openChainModal} type="button" className="bg-red-500 text-white hover:bg-red-600 px-6 py-2 rounded-lg font-semibold">
+                          <button 
+                            onClick={openChainModal} 
+                            type="button" 
+                            className="bg-red-500 text-white hover:bg-red-600 px-6 py-2 rounded-lg font-semibold transition-colors"
+                          >
                             Wrong network
                           </button>
                         );
@@ -84,7 +92,7 @@ export const VotingHeader = () => {
                           <button
                             onClick={openAccountModal}
                             type="button"
-                            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-semibold"
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-semibold transition-colors"
                           >
                             {account.displayName}
                           </button>

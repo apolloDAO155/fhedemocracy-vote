@@ -60,7 +60,7 @@ const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Replac
 
 export const useContract = () => {
   const { address, isConnected } = useAccount();
-  const { writeContract, isPending } = useWriteContract();
+  const { writeContract, isPending, error } = useWriteContract();
   const [isLoading, setIsLoading] = useState(false);
 
   // Create a new proposal
@@ -202,6 +202,7 @@ export const useContract = () => {
     isLoading: isLoading || isPending,
     isConnected,
     address,
+    error,
   };
 };
 

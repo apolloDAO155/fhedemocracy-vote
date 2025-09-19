@@ -6,15 +6,19 @@ import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { injected, walletConnect, coinbaseWallet } from "wagmi/connectors";
 import { toast } from "@/hooks/use-toast";
 
-// RainbowKit configuration
+// RainbowKit configuration with proper error handling
 const config = getDefaultConfig({
   appName: "FHE Democracy Vote",
   projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || "2ec9743d0d0cd7fb94dee1a7e6d33475",
   chains: [sepolia, mainnet],
   connectors: [
     injected(),
-    walletConnect(),
-    coinbaseWallet(),
+    walletConnect({
+      projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || "2ec9743d0d0cd7fb94dee1a7e6d33475",
+    }),
+    coinbaseWallet({
+      appName: "FHE Democracy Vote",
+    }),
   ],
   transports: {
     [sepolia.id]: http(import.meta.env.VITE_RPC_URL || "https://1rpc.io/sepolia"),
@@ -22,7 +26,14 @@ const config = getDefaultConfig({
   },
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 interface WalletContextType {
   isConnected: boolean;
@@ -49,7 +60,12 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider
+          appInfo={{
+            appName: "FHE Democracy Vote",
+            learnMoreUrl: "https://fhe-democracy-vote.vercel.app",
+          }}
+        >
           <WalletContext.Provider value={{
             isConnected: false,
             address: null,

@@ -3,7 +3,7 @@ import { ProposalCard } from "./ProposalCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Vote, Shield, TrendingUp, Users, Clock } from "lucide-react";
+import { Vote, Lock, TrendingUp, Users, Clock, Zap, CheckCircle, BarChart3 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import heroVoting from "@/assets/hero-voting.jpg";
 
@@ -58,8 +58,8 @@ export const VotingDashboard = () => {
   const stats = [
     { label: "Active Proposals", value: proposals.filter(p => p.status === "active").length, icon: Vote },
     { label: "Total Participants", value: "2,847", icon: Users },
-    { label: "Encryption Rate", value: "100%", icon: Shield },
-    { label: "Avg Turnout", value: "76%", icon: TrendingUp }
+    { label: "Encryption Rate", value: "100%", icon: Lock },
+    { label: "Avg Turnout", value: "76%", icon: BarChart3 }
   ];
 
   return (
@@ -84,10 +84,11 @@ export const VotingDashboard = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secure" size="lg" className="text-lg px-8">
-              <Shield className="w-5 h-5" />
+              <Lock className="w-5 h-5" />
               Learn About FHE
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-8 bg-white/10 border-white/30 text-white hover:bg-white/20">
+              <BarChart3 className="w-5 h-5 mr-2" />
               View Results
             </Button>
           </div>
@@ -141,7 +142,7 @@ export const VotingDashboard = () => {
           <Card className="max-w-4xl mx-auto border-2 border-primary/20">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl flex items-center justify-center gap-2">
-                <Shield className="w-6 h-6" />
+                <Lock className="w-6 h-6" />
                 How Encryption Protects Your Vote
               </CardTitle>
               <CardDescription className="text-base">

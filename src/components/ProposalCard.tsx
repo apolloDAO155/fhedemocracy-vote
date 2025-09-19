@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Shield, CheckCircle, XCircle } from "lucide-react";
+import { Clock, Users, Lock, CheckCircle, XCircle, Vote } from "lucide-react";
+import { useContract } from "@/hooks/useContract";
 
 interface ProposalCardProps {
   id: string;
@@ -24,6 +25,8 @@ export const ProposalCard = ({
   hasVoted,
   onVote 
 }: ProposalCardProps) => {
+  const { castVote, isLoading } = useContract();
+  
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active": return "bg-secondary text-secondary-foreground";
@@ -33,13 +36,19 @@ export const ProposalCard = ({
     }
   };
 
+  const handleVote = async (vote: "yes" | "no") => {
+    const voteChoice = vote === "yes" ? 1 : 2;
+    await castVote(parseInt(id), voteChoice);
+    onVote(id, vote);
+  };
+
   return (
     <Card className="card-gradient hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20">
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-              <Shield className="w-5 h-5" />
+              <Vote className="w-5 h-5" />
               {title}
             </CardTitle>
             <CardDescription className="mt-2 text-base">
@@ -69,26 +78,28 @@ export const ProposalCard = ({
           <div className="flex gap-3 pt-2">
             {hasVoted ? (
               <div className="flex items-center gap-2 text-secondary">
-                <Shield className="w-4 h-4" />
+                <Lock className="w-4 h-4" />
                 <span className="text-sm font-medium">Vote encrypted and submitted</span>
               </div>
             ) : (
               <>
                 <Button
-                  onClick={() => onVote(id, "yes")}
+                  onClick={() => handleVote("yes")}
                   variant="vote"
                   className="flex-1 flex items-center gap-2"
+                  disabled={isLoading}
                 >
                   <CheckCircle className="w-4 h-4" />
-                  Vote Yes
+                  {isLoading ? "Encrypting..." : "Vote Yes"}
                 </Button>
                 <Button
-                  onClick={() => onVote(id, "no")}
+                  onClick={() => handleVote("no")}
                   variant="outline"
                   className="flex-1 flex items-center gap-2"
+                  disabled={isLoading}
                 >
                   <XCircle className="w-4 h-4" />
-                  Vote No
+                  {isLoading ? "Encrypting..." : "Vote No"}
                 </Button>
               </>
             )}

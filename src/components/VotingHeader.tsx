@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Shield, Vote } from "lucide-react";
+import { Vote, Lock, Users, Zap } from "lucide-react";
 import votingLogo from "@/assets/voting-logo.jpg";
 
 export const VotingHeader = () => {
@@ -16,7 +16,7 @@ export const VotingHeader = () => {
             />
             <div className="flex flex-col">
               <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-                <Shield className="w-6 h-6" />
+                <Vote className="w-6 h-6" />
                 FHE Democracy
               </h1>
               <p className="text-sm text-muted-foreground font-medium">

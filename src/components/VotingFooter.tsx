@@ -1,4 +1,4 @@
-import { Archive, Shield, Lock, Vote } from "lucide-react";
+import { Archive, Lock, Vote, Users, Zap } from "lucide-react";
 
 export const VotingFooter = () => {
   return (
@@ -20,16 +20,20 @@ export const VotingFooter = () => {
           {/* Security Features */}
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2 text-sm">
-              <Shield className="w-4 h-4" />
+              <Lock className="w-4 h-4" />
               <span>FHE Protected</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <Lock className="w-4 h-4" />
+              <Users className="w-4 h-4" />
               <span>Zero Knowledge</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Vote className="w-4 h-4" />
               <span>Verified Results</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Zap className="w-4 h-4" />
+              <span>Fast Processing</span>
             </div>
           </div>
 
